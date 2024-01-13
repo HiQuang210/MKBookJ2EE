@@ -1,0 +1,118 @@
+.bg-custom{
+    background-color: rgb(0, 73, 99);
+}
+.navbar .nav-item:hover .nav-link {
+    background-color: rgba(252, 240, 255, 0.8); 
+    color: rgb(58, 58, 58);
+    border-radius: 5px;
+}
+.wrapper {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 1);
+    color: white;
+    border-radius: 10px;
+    width: 30%;
+    padding: 30px 40px;
+}
+
+.wrapper .input-box{
+    width: 100%;
+    height: 50px;
+    margin: 15px 0;
+}
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .15);
+    border-radius: 10px;
+    font-size: 16px;
+    color: white;
+    padding: 20px 45px 20px 20px;
+    outline: none;
+}
+
+.input-box .row .col input {
+    height: 80%; 
+    margin-right: 4%; 
+}
+
+.input-box input::placeholder {
+    color: white;
+}
+.input-box i {
+    margin: 16px 32px;
+    position: absolute;
+    right: 20px;
+    font-size: 20px;
+}
+.wrapper .remember-forgot {
+    display: flex; 
+    justify-content: space-between;
+    font-size: 15px;
+    margin: 15px 0;
+}
+
+.remember-forgot label-input {
+    accent-color: white;
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    color: #f0e4ff;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out;
+}
+
+.remember-forgot a:hover {
+    color: #e4cfff; 
+    text-decoration: underline;
+}
+
+.remember-forgot .forgot-password {
+    text-align: right;
+}
+
+.wrapper .btn {
+    width: 100%;
+    height: 45px; 
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.wrapper .register-link {
+    font-size: 15px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+.register-link p a {
+    color: #f0e4ff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out;
+}
+
+.register-link p a:hover {
+    color: #e4cfff; 
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 1000px) {
+    .wrapper {
+        width: 45%;
+    }
+}
+@media screen and (max-width: 700px) {
+    .wrapper {
+        width: 65%;
+    }
+}
+
