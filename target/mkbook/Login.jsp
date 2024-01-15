@@ -24,9 +24,13 @@
     <script>
         function hideStatusMessage() {
             var failMsgElement = document.getElementById('failMsg');
+            var succMsgElement = document.getElementById('succMsg');
 
             if (failMsgElement) {
                 failMsgElement.style.display = 'none';
+            }
+            if (succMsgElement) {
+            succMsgElement.style.display = 'none';
             }
         }
 
@@ -68,6 +72,10 @@
     <div class="wrapper">
         <form action="login" method="post" onsubmit="setRememberMe()">
             <h1 class="text-center fw-bold">Login</h1>
+            <c:if test="${not empty succMsg}">
+                <p id="succMsg" class="text-center text-success" style="font-weight: bold; font-size: 16px">${succMsg}</p>
+                <c:remove var="succMsg" scope="session"/>
+            </c:if>
             <div class="input-box mt-4">
                 <input type="email" placeholder="Email" id="email" name="email" required onclick="hideStatusMessage()">
                 <i class="fa-solid fa-user"></i>
@@ -81,7 +89,7 @@
                     <label><input type="checkbox" id="rememberMe"> Remember me</label>
                 </div>
                 <div class="forgot-password">
-                    <a href="#">Forgot Password?</a>
+                    <a href="ForgotPass.jsp">Forgot Password?</a>
                 </div>
             </div>
             <c:if test="${not empty failMsg}">

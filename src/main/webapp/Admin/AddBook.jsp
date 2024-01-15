@@ -59,17 +59,19 @@
         }
     
         function validateForm() {
-            // Check if at least one tag is selected
             if (selectedTags.length === 0) {
                 alert('Please select at least 1 tag.');
-                return false; // Prevent form submission
+                return false; 
             }
-            return true; // Allow form submission
+            return true; 
         }
     </script>
 </head>
 <body style="background-color: #F8F8F8;">
 <%@ include file="navbar.jsp" %>
+<c:if test="${empty userobj}">
+    <c:redirect url="../Login.jsp"/>
+</c:if>
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">

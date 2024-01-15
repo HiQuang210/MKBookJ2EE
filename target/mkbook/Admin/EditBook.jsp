@@ -73,6 +73,9 @@
 </head>
 <body style="background-color: #F8F8F8;">
 <%@ include file="navbar.jsp" %>
+<c:if test="${empty userobj}">
+    <c:redirect url="../Login.jsp"/>
+</c:if>
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">

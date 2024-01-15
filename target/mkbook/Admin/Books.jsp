@@ -13,7 +13,10 @@
 </head>
 <body style="background-color: #F8F8F8;">
 <%@ include file="navbar.jsp" %>
-<h1 class="text-center">Hello Admin!</h1>
+<c:if test="${empty userobj}">
+    <c:redirect url="../Login.jsp"/>
+</c:if>
+<!--<h1 class="text-center">Hello Admin!</h1>-->
 <c:if test="${not empty succMsg}">
   <p id="succMsg" class="text-center text-success" style="font-weight: bold; font-size: 16px">${succMsg}</p>
   <c:remove var="succMsg" scope="session"/>
@@ -50,10 +53,10 @@
           <td><%=book.getGenres()%></td>
           <td><%=book.getBookStatus()%></td>
           <td>
-            <a href="EditBook.jsp?id=<%=book.getBookId()%>" class="btn btn-primary">Edit</a>
+            <a href="EditBook.jsp?id=<%=book.getBookId()%>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
             <form action="../delete_book" method="post" style="display: inline;">
                 <input type="hidden" name="id" value="<%=book.getBookId()%>">
-                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Delete</button>
             </form>
         </td>
         </tr>

@@ -1,10 +1,10 @@
 com\DAO\BookDAOimpl.class
 com\DAO\UserDAOimpl.class
+com\DAO\UserDAO.class
+com\UserServlet\RegisterServlet.class
 com\Entity\Book.class
 com\DB\DBConnect.class
-com\DAO\UserDAO.class
 com\UserServlet\LoginServlet.class
 com\AdminServlet\BookAdd.class
 com\DAO\BookDAO.class
 com\Entity\User.class
-com\UserServlet\RegisterServlet.class

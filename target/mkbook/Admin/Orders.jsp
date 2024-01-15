@@ -8,7 +8,10 @@
 </head>
 <body style="background-color: #F8F8F8;">
 <%@ include file="navbar.jsp" %>
-<h1 class="text-center">Hello Admin!</h1>
+<c:if test="${empty userobj}">
+    <c:redirect url="../Login.jsp"/>
+</c:if>
+<!--<h1 class="text-center">Hello Admin!</h1>-->
 <table class="table table-striped">
     <thead class="bg-dark text-white">
       <tr>

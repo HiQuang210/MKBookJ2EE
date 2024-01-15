@@ -15,10 +15,16 @@ public class LoginServlet extends HttpServlet{
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             
-            if ("admin@gmail.com".equals(email) && "admin".equals(password)) {
-                User user=new User();
-                session.setAttribute("userobj", user);
-                response.sendRedirect("Admin/HomeAdmin.jsp");
+            if ("admin@gmail.com".equals(email)) {
+                User admin = dao.getUserByEmail("admin@gmail.com");
+
+                if (admin != null && password.equals(admin.getPassword())) {
+                    session.setAttribute("userobj", admin);
+                    response.sendRedirect("Admin/HomeAdmin.jsp");
+                } else {
+                    session.setAttribute("failMsg", "Email or password entered is incorrect");
+                    response.sendRedirect("Login.jsp");
+                }
             } else {
 
                 User user=dao.Login(email, password);

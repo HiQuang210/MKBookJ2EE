@@ -8,6 +8,7 @@ import jakarta.servlet.http.*;
 import com.DAO.BookDAOimpl;
 import com.DB.DBConnect;
 import com.Entity.Book;
+import com.Entity.User;
 @WebServlet("/add_books")
 @MultipartConfig
 public class BookAdd extends HttpServlet{
@@ -28,6 +29,13 @@ public class BookAdd extends HttpServlet{
             BookDAOimpl dao=new BookDAOimpl(DBConnect.getConnection());
             boolean check=dao.addBook(book);
             HttpSession session=request.getSession();
+            User user = (User) session.getAttribute("userobj");
+            if (user == null) {
+                // User is not authenticated, redirect to login page
+                session.setAttribute("failMsg", "You are not logged in. Please log in to continue.");
+                response.sendRedirect("Login.jsp");
+                return; // Exit the servlet
+            }
             if (check) {
                 String uploadPath = getServletContext().getRealPath("") + File.separator + "Images";
             
