@@ -116,6 +116,16 @@
                                 totalAmount += totalPrice;
                                 updateTotal();
                                 updateConfirmButtonState();
+                                $.ajax({
+                                    url: "../importbook", 
+                                    type: "POST",
+                                    data: { bookName: selectedBook, quantity: quantity },
+                                    success: function (result) {
+                                },
+                                error: function (error) {
+                                    console.error("Error importing book:", error);
+                                }
+                            });
                             }
                         });
                     }
@@ -149,7 +159,7 @@
                 <input type="number" placeholder="Enter quantity" id="quantitybox" name="quantity" class="form-control" required>
             </div>
             <div class="form-group mt-1 text-center">
-                <button type="button" class="btn btn-primary mx-auto" onclick="importBook()">Import</button>
+                <button type="button" class="btn btn-primary mx-auto" onclick="importBook()">Import <i class="fa-solid fa-circle-arrow-right"></i></button>
             </div>
         </div>
         <div class="col-md-9 bg-white">
@@ -160,7 +170,7 @@
                     <th scope="col">Book name</th>
                     <th scope="col">Author</th>
                     <th scope="col">Quantity</th>
-                    <th scope="col">Total Price</th>
+                    <th scope="col">Amount</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -172,7 +182,7 @@
     <div class="row mt-3">
         <div class="col-md-12 text-right">
             <p style="font-size: 24px; font-weight: bold;">Total: <span id="totalAmount">0 VND</span></p>
-            <button type="button" class="btn btn-success mx-auto mb-2" data-toggle="modal" data-target="#OrderConfirmModal" id="confirmButton">Confirm</button>
+            <button type="button" class="btn btn-success mx-auto mb-2" data-toggle="modal" data-target="#OrderConfirmModal" id="confirmButton"><i class="fa-solid fa-money-bill"></i> Proceed</button>
         </div>
     </div>
     <div class="modal fade" id="OrderConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

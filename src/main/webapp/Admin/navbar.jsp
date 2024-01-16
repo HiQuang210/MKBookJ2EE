@@ -7,9 +7,9 @@
       <div class="col-md-6 col-12 mt-1">
           <h3><i class="fa-solid fa-torii-gate"></i> MKBook</h3>
       </div>
-      <div class="col-md-6 col-12 mt-1 text-md-right"> 
+      <!-- <div class="col-md-6 col-12 mt-1 text-md-right"> 
           <a href="" class="btn btn-info"><i class="fa-solid fa-inbox mr-2"></i>Contact us</a>
-      </div>
+      </div> -->
   </div>
 </div>
 
