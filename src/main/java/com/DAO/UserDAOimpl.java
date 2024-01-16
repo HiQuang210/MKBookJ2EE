@@ -62,6 +62,7 @@ public class UserDAOimpl implements UserDAO{
         }
         return user;
     }
+
     public User getUserByEmail(String email) {
         User user = null;
         try {
@@ -86,6 +87,25 @@ public class UserDAOimpl implements UserDAO{
             e.printStackTrace();
         }
         return user;
+    }
+
+    public void updateUser(User user) {
+        try {
+            String sql = "UPDATE user SET password=? WHERE email=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, user.getPassword());
+            ps.setString(2, user.getEmail());
+
+            int rowsUpdated = ps.executeUpdate();
+
+            if (rowsUpdated == 0) {
+                System.out.println("User not found with email: " + user.getEmail());
+            } else {
+                System.out.println("User password updated successfully");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

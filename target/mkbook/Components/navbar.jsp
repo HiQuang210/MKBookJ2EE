@@ -25,10 +25,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#"><i class="fa-solid fa-house"></i> Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="index.jsp"><i class="fa-solid fa-house"></i> Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="#"><i class="fa-solid fa-book"></i> Recent Book</a>
+          <a class="nav-link" href="AllRecent.jsp"><i class="fa-solid fa-book"></i> Recent Book</a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="#"><i class="fa-solid fa-dollar-sign"></i> Deals</a>

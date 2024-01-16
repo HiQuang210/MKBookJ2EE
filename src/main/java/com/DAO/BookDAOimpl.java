@@ -150,4 +150,28 @@ public class BookDAOimpl implements BookDAO{
         }
         return list;
     }
+    public List<Book> getAllNewBooks() {
+        List<Book> list = new ArrayList<Book>();
+        Book book = null;
+        try {
+            String sql = "SELECT * FROM book WHERE bookStatus = 'Active' ORDER BY bookId DESC";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                book = new Book();
+                book.setBookId(rs.getInt(1));
+                book.setBookName(rs.getString(2));
+                book.setAuthor(rs.getString(3));
+                book.setPrice(rs.getInt(4));
+                book.setGenres(rs.getString(5));
+                book.setBookStatus(rs.getString(6));
+                book.setPhoto(rs.getString(7));
+                book.setEmail(rs.getString(8));
+                list.add(book);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
