@@ -54,6 +54,7 @@ public class BookDAOimpl implements BookDAO{
                 book.setBookStatus(rs.getString(6));
                 book.setPhoto(rs.getString(7));
                 book.setEmail(rs.getString(8));
+                book.setQuantity(rs.getInt(9)); 
                 list.add(book);
             }
 
@@ -80,6 +81,7 @@ public class BookDAOimpl implements BookDAO{
                 book.setBookStatus(rs.getString(6));
                 book.setPhoto(rs.getString(7));
                 book.setEmail(rs.getString(8));
+                book.setQuantity(rs.getInt(9)); 
             }
 
         } catch (Exception e) {
@@ -142,6 +144,7 @@ public class BookDAOimpl implements BookDAO{
                 book.setBookStatus(rs.getString(6));
                 book.setPhoto(rs.getString(7));
                 book.setEmail(rs.getString(8));
+                book.setQuantity(rs.getInt(9)); 
                 list.add(book);
                 i++;
             }
@@ -150,6 +153,7 @@ public class BookDAOimpl implements BookDAO{
         }
         return list;
     }
+
     public List<Book> getAllNewBooks() {
         List<Book> list = new ArrayList<Book>();
         Book book = null;
@@ -173,5 +177,83 @@ public class BookDAOimpl implements BookDAO{
             e.printStackTrace();
         }
         return list;
+    }
+
+    public List<String> getBookNameOptions() {
+        List<String> options = new ArrayList<>();
+        try {
+            String sql = "SELECT DISTINCT bookname FROM book";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                options.add(rs.getString("bookname"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return options;
+    }
+
+    public String getBookPhotoByName(String bookName) {
+        String photo = null;
+        try {
+            String sql = "SELECT photo FROM book WHERE bookname=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, bookName);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                photo = rs.getString("photo");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return photo;
+    }
+    public String getBookAuthorByName(String bookName) {
+        String author = "";
+        try {
+            String sql = "SELECT author FROM book WHERE bookname=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, bookName);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                author = rs.getString("author");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return author;
+    }
+    public int getPriceByName(String bookName) {
+        int price = 0;
+        try {
+            String sql = "SELECT price FROM book WHERE bookname=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, bookName);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                price = rs.getInt("price");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return price;
+    }
+    public boolean addBookQuantity(String bookName, int quantity) {
+        boolean check = false;
+        try {
+            String sql = "UPDATE book SET quantity = quantity + ? WHERE bookname = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, quantity);
+            ps.setString(2, bookName);
+
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                check = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
     }
 }

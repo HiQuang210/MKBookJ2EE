@@ -43,31 +43,25 @@
     
         function toggleTag(tag) {
             if (tag.classList.contains('active')) {
-                // If the tag is already selected, remove it from the array
                 selectedTags = selectedTags.filter(function (item) {
                     return item !== tag.innerText;
                 });
                 tag.classList.remove('active');
             } else if (selectedTags.length < 3) {
-                // If less than 3 tags are selected, add the tag to the array
                 selectedTags.push(tag.innerText);
                 tag.classList.add('active');
             } else {
-                // If 3 tags are already selected, prevent adding more tags
                 alert('You can only select up to 3 tags.');
             }
-    
-            // Update the hidden input field value
             document.getElementById('selectedTags').value = selectedTags.join(', ');
         }
     
         function validateForm() {
-            // Check if at least one tag is selected
             if (selectedTags.length === 0) {
                 alert('Please select at least 1 tag.');
-                return false; // Prevent form submission
+                return false; 
             }
-            return true; // Allow form submission
+            return true; 
         }
     </script>
 </head>

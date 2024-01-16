@@ -52,6 +52,9 @@
           <a class="nav-link" href="AddBook.jsp"><i class="fa-solid fa-upload"></i> Upload Book</a>
         </li>
         <li class="nav-item active">
+          <a class="nav-link" href="Inventory.jsp"><i class="fa-solid fa-boxes-stacked"></i></i> Inventory</a>
+        </li>
+        <li class="nav-item active">
           <a class="nav-link" href="Orders.jsp"><i class="fa-solid fa-file-invoice"></i> Order</a>
         </li>
       </ul>

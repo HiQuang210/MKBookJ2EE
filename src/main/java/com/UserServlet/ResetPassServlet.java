@@ -56,7 +56,6 @@ public class ResetPassServlet extends HttpServlet {
                     userDAO.updateUser(user);
                 }
             } else {
-                // Handle the case where the email is not valid or not present
                 System.out.println("Invalid email or email not present in session");
             }
         } catch (Exception e) {

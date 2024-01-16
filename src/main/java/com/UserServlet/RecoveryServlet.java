@@ -70,7 +70,7 @@ public class RecoveryServlet extends HttpServlet {
     
     private void sendEmail(String to, String passcode) {
 
-        String from = "hongquang395@gmail.com"; // Replace with your Gmail address
+        String from = "hongquang395@gmail.com"; 
 
         Properties properties = System.getProperties();
         properties.setProperty("mail.smtp.host", "smtp.gmail.com");

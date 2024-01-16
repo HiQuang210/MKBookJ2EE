@@ -11,4 +11,8 @@ public interface BookDAO {
     public boolean deleteBook(int id);
     public List<Book> getNewBooks();
     public List<Book> getAllNewBooks();
+    public String getBookPhotoByName(String bookName);
+    public String getBookAuthorByName(String bookName);
+    public int getPriceByName(String bookName);
+    public boolean addBookQuantity(String bookName, int quantity);
 }
