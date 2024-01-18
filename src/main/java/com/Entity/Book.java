@@ -10,10 +10,11 @@ public class Book {
     private String photo;
     private String email;
     private int quantity;
+    private int soldCopy;
     public Book() {
         super();
     }
-    public Book(String bookName, String author, int price, String genres, String bookStatus, String photo, String email, int quantity) {
+    public Book(String bookName, String author, int price, String genres, String bookStatus, String photo, String email, int quantity, int soldCopy) {
         super();
         this.bookName = bookName;
         this.author = author;
@@ -23,6 +24,7 @@ public class Book {
         this.photo = photo;
         this.email = email;
         this.quantity = quantity;
+        this.soldCopy = soldCopy;
     }
     public int getBookId() {
         return bookId;
@@ -78,7 +80,13 @@ public class Book {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    public int getSoldCopy() {
+        return soldCopy;
+    }
+    public void setSoldCopy(int soldCopy) {
+        this.soldCopy = soldCopy;
+    }
     public String toString() {
-        return "Book [bookId=" + bookId + ", bookName=" + bookName + ", author=" + author + ", price=" + price + ", genres=" + genres + ", bookstatus=" + bookStatus + ", photo=" + photo + ", email=" + email + ", quantity=" + quantity + "]";
+        return "Book [bookId=" + bookId + ", bookName=" + bookName + ", author=" + author + ", price=" + price + ", genres=" + genres + ", bookstatus=" + bookStatus + ", photo=" + photo + ", email=" + email + ", quantity=" + quantity + " , soldCopy=" + soldCopy +"]";
     }
 }

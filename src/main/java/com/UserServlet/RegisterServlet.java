@@ -28,23 +28,25 @@ public class RegisterServlet extends HttpServlet {
             user.setEmail(email);
             user.setPhone(phone);
             user.setPassword(password);
-
             HttpSession session = request.getSession();
             session.removeAttribute("succMsg");
             session.removeAttribute("failMsg");
-
             if (password.equals(confirmpass)) {
-
             UserDAOimpl dao = new UserDAOimpl(DBConnect.getConnection());
             boolean check=dao.UserRegister(user);
-            if (check) {
-                System.out.println("User registration successfully");
-                session.setAttribute("succMsg", "Registration successfully.");
+            if (dao.isEmailExists(email)) {
+                session.setAttribute("failMsg", "The entered email is already registered.");
                 response.sendRedirect("Register.jsp");
             } else {
-                System.out.println("Something went wrong");
-                session.setAttribute("failMsg", "Something went wrong, please try again.");
-                response.sendRedirect("Register.jsp");
+                if (check) {
+                    System.out.println("User registration successfully");
+                    session.setAttribute("succMsg", "Registration successfully.");
+                    response.sendRedirect("Register.jsp");
+                } else {
+                    System.out.println("Something went wrong");
+                    session.setAttribute("failMsg", "Something went wrong, please try again.");
+                    response.sendRedirect("Register.jsp");
+                }
             }
             } else {
                 session.setAttribute("failMsg", "Passwords do not match.");

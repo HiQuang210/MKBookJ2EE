@@ -2,6 +2,7 @@ package com.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -130,7 +131,7 @@ public class BookDAOimpl implements BookDAO{
         List<Book> list = new ArrayList<Book>();
         Book book = null;
         try {
-            String sql = "SELECT * FROM book WHERE bookStatus = 'Active' ORDER BY bookId DESC";
+            String sql = "SELECT * FROM book WHERE bookStatus = 'Active' AND quantity > 0 ORDER BY bookId DESC";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             int i = 1;
@@ -158,7 +159,7 @@ public class BookDAOimpl implements BookDAO{
         List<Book> list = new ArrayList<Book>();
         Book book = null;
         try {
-            String sql = "SELECT * FROM book WHERE bookStatus = 'Active' ORDER BY bookId DESC";
+            String sql = "SELECT * FROM book WHERE bookStatus = 'Active' AND quantity > 0 ORDER BY bookId DESC";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -171,6 +172,7 @@ public class BookDAOimpl implements BookDAO{
                 book.setBookStatus(rs.getString(6));
                 book.setPhoto(rs.getString(7));
                 book.setEmail(rs.getString(8));
+                book.setQuantity(rs.getInt(9)); 
                 list.add(book);
             }
         } catch (Exception e) {
@@ -256,4 +258,58 @@ public class BookDAOimpl implements BookDAO{
         }
         return check;
     }
+    
+    public int getSoldCopyByName(String bookName) {
+    int soldCopy = 0;
+
+    try {
+        String sql = "SELECT soldcopy FROM book WHERE bookname = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, bookName);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                soldCopy = rs.getInt("soldcopy");
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return soldCopy;
+    }
+
+    public List<Book> getBookBySearch(String ch) {
+        List<Book> list = new ArrayList<Book>();
+        Book book = null;
+        try {
+            String sql = "SELECT * FROM book WHERE bookname like ? OR author like ? OR genres like ? AND bookstatus =?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, "%"+ch+"%");
+            ps.setString(2, "%"+ch+"%");
+            ps.setString(3, "%"+ch+"%");
+            ps.setString(4, "Active");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next())
+            {
+                book = new Book();
+                book.setBookId(rs.getInt(1));
+                book.setBookName(rs.getString(2));
+                book.setAuthor(rs.getString(3));
+                book.setPrice(rs.getInt(4));
+                book.setGenres(rs.getString(5));
+                book.setBookStatus(rs.getString(6));
+                book.setPhoto(rs.getString(7));
+                book.setEmail(rs.getString(8));
+                book.setQuantity(rs.getInt(9)); 
+                list.add(book);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+    
 }

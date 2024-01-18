@@ -13,6 +13,8 @@ public interface BookDAO {
     public List<Book> getAllNewBooks();
     public String getBookPhotoByName(String bookName);
     public String getBookAuthorByName(String bookName);
+    public int getSoldCopyByName(String bookName);
     public int getPriceByName(String bookName);
     public boolean addBookQuantity(String bookName, int quantity);
+    public List<Book> getBookBySearch(String ch);
 }

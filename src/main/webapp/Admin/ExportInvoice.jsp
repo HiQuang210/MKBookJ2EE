@@ -20,62 +20,62 @@
             }
         }
     </style>
+    <script>
+        function removeExportBooks() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '../removecurrent', true);
+            xhr.send();
+        }
+        document.addEventListener('visibilitychange', function () {
+            if (document.visibilityState === 'hidden') {
+                removeExportBooks();
+            }
+        });
+        window.addEventListener('beforeunload', function () {
+            removeExportBooks();
+        });
+        $(document).ready(function () {
+            $("#printButton").click(function () {
+                window.print();
+            });
+        });
+        function checkExportBooks() {
+            var exportBooks = '${exportBooks}';
+            if (!exportBooks || exportBooks.length === 0) {
+                window.location.href = 'Inventory.jsp';
+            }
+        }
+        function calculateTotal() {
+            var total = 0;
+    
+            // Iterate over the table rows
+            var tableRows = document.querySelectorAll('tbody tr');
+            for (var i = 0; i < tableRows.length; i++) {
+                var amountCell = tableRows[i].querySelector('td:nth-child(4)'); // Assuming "Amount" is in the 4th column
+                var amountValue = parseFloat(amountCell.textContent.trim());
+    
+                // Check if the value is a valid number
+                if (!isNaN(amountValue)) {
+                    total += amountValue;
+                }
+            }
+            console.log('Total:', total); 
+            var totalContainer = document.getElementById('totalAmount');
+            totalContainer.style.fontSize = '20px';
+            totalContainer.style.fontWeight = 'bold';
+            totalContainer.innerHTML = total + ' VND';
+        }
+        window.onload = function () {
+            checkExportBooks();
+            calculateTotal();
+        };
+    </script>
 </head>
 <body style="background-color: #F8F8F8;">
 <%@ include file="navbar.jsp" %>
 <c:if test="${empty userobj}">
     <c:redirect url="../Login.jsp"/>
 </c:if>
-<script>
-    function removeExportBooks() {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '../removecurrent', true);
-        xhr.send();
-    }
-    document.addEventListener('visibilitychange', function () {
-        if (document.visibilityState === 'hidden') {
-            removeExportBooks();
-        }
-    });
-    window.addEventListener('beforeunload', function () {
-        removeExportBooks();
-    });
-    $(document).ready(function () {
-        $("#printButton").click(function () {
-            window.print();
-        });
-    });
-    function checkExportBooks() {
-        var exportBooks = '${exportBooks}';
-        if (!exportBooks || exportBooks.length === 0) {
-            window.location.href = 'Inventory.jsp';
-        }
-    }
-    function calculateTotal() {
-        var total = 0;
-
-        // Iterate over the table rows
-        var tableRows = document.querySelectorAll('tbody tr');
-        for (var i = 0; i < tableRows.length; i++) {
-            var amountCell = tableRows[i].querySelector('td:nth-child(4)'); // Assuming "Amount" is in the 4th column
-            var amountValue = parseFloat(amountCell.textContent.trim());
-
-            // Check if the value is a valid number
-            if (!isNaN(amountValue)) {
-                total += amountValue;
-            }
-        }
-        console.log('Total:', total); 
-        var totalContainer = document.getElementById('totalAmount');
-        totalContainer.style.fontSize = '20px';
-        totalContainer.style.fontWeight = 'bold';
-        totalContainer.innerHTML = total + ' VND';
-    }
-    window.onload = function () {
-        checkExportBooks();
-        calculateTotal();
-    };
-</script>
 <div class="container-fluid">
     <div class="ml-1 mt-1">
         <h1 style="font-size: 40px; font-weight: bold;">Invoice</h1>

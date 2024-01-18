@@ -23,7 +23,7 @@ public class BookAdd extends HttpServlet{
             Part part=request.getPart("bookimg");
             String fileName=part.getSubmittedFileName();
 
-            Book book=new Book(bookName, author, price, genres, bookStatus, fileName, "admin", 0);
+            Book book=new Book(bookName, author, price, genres, bookStatus, fileName, "admin", 0, 0);
             System.out.println(book);
 
             BookDAOimpl dao=new BookDAOimpl(DBConnect.getConnection());

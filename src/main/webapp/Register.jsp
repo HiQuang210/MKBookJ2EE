@@ -54,7 +54,7 @@
                 <input type="email" placeholder="Email" name="email" required>
             </div>
             <div class="input-box">
-                <input type="text" placeholder="Phone Number" name="phone" required>
+                <input type="number" placeholder="Phone Number" name="phone" required>
             </div>
             <div class="input-box">
                 <input type="password" placeholder="Password" name="password" required>

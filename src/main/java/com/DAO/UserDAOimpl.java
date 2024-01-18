@@ -2,6 +2,7 @@ package com.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.Entity.User;
 
@@ -106,6 +107,132 @@ public class UserDAOimpl implements UserDAO{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isEmailExists(String email) {
+        boolean exists = false;
+        try {
+            String sql = "SELECT COUNT(*) FROM user WHERE email=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+    
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+    
+            int count = rs.getInt(1);
+            if (count > 0) {
+                exists = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        return exists;
+    }
+
+    public boolean checkPassword(int id, String password) {
+        boolean check = false;
+        try {
+            String sql = "SELECT * FROM user WHERE id=? AND password=?";
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            check = rs.next();
+            while (rs.next()) {
+                check = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
+    public boolean updateProfile(User user) {
+        boolean check=false;
+
+        try {
+            String sql="UPDATE user SET firstname = ?,lastname = ?, phone = ? WHERE id =?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, user.getFirstname());
+            ps.setString(2, user.getLastname());
+            ps.setString(3, user.getPhone());
+            ps.setInt(4, user.getId());
+
+            int i=ps.executeUpdate();
+            if(i==1)
+            {
+                check=true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
+    public boolean updatePassword(User user) {
+        boolean check = false;
+    
+        try {
+            String sql = "UPDATE user SET password=? WHERE id=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, user.getPassword());
+            ps.setInt(2, user.getId());
+    
+            int rowsUpdated = ps.executeUpdate();
+    
+            if (rowsUpdated == 1) {
+                check = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
+    public boolean updateAddress(User user) {
+        boolean check = false;
+        try {
+            String sql = "UPDATE user SET address=?, city=?, zipcode=? WHERE id=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, user.getAddress());
+            ps.setString(2, user.getCity());
+            ps.setInt(3, user.getZipcode());
+            ps.setInt(4, user.getId());
+    
+            int rowsUpdated = ps.executeUpdate();
+    
+            if (rowsUpdated == 1) {
+                check = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
+    public User getUserById(int id) {
+        User user = null;
+
+        try {
+            String sql = "SELECT * FROM user WHERE id=?";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, id);
+
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        user = new User();
+                        user.setId(rs.getInt("id"));
+                        user.setFirstname(rs.getString("firstname"));
+                        user.setLastname(rs.getString("lastname"));
+                        user.setEmail(rs.getString("email"));
+                        user.setPhone(rs.getString("phone"));
+                        user.setAddress(rs.getString("address"));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
     }
 }
 

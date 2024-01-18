@@ -38,7 +38,8 @@ public class ImportBook extends HttpServlet {
         if (!bookExists) {
             BookDAO dao = new BookDAOimpl(DBConnect.getConnection());
             int price = dao.getPriceByName(bookName);
-            Book importedBook = new Book(bookName, "", price, "", "", "", "", quantity);
+            int soldCopy = dao.getSoldCopyByName(bookName); 
+            Book importedBook = new Book(bookName, "", price, "", "", "", "", quantity, soldCopy);
             exportBooks.add(importedBook);
         }
         session.setAttribute("exportBooks", exportBooks);
