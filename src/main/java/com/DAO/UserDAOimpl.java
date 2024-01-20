@@ -113,17 +113,17 @@ public class UserDAOimpl implements UserDAO{
         boolean exists = false;
         try {
             String sql = "SELECT COUNT(*) FROM user WHERE email=?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, email);
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, email);
     
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-    
-            int count = rs.getInt(1);
-            if (count > 0) {
-                exists = true;
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        int count = rs.getInt(1);
+                        exists = count > 0;
+                    }
+                }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     

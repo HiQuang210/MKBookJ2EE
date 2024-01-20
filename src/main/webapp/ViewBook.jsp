@@ -71,7 +71,7 @@
             }
         }
     </script>
-    <c:if test="${not empty addCart}">
+    <!-- <c:if test="${not empty addCart}">
         <div id="toast">${addCart}</div>
         <script type="text/javascript">
             showToast();
@@ -85,7 +85,7 @@
             }
         </script>
         <c:remove var="addCart" scope="session"/>
-    </c:if>
+    </c:if> -->
 </head>
 <body style="background-color: white;">
     <%
@@ -93,65 +93,67 @@
     %>
 <%@ include file="Components/navbar.jsp" %>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6 text-center p-5 border bg-white">
-            <img src="Images/<%=book.getPhoto()%>" style="height: 350px; width: 250px"><br>
-            <h1 style="font-size: 40px;"><%=book.getBookName()%></h1>
-            <h2 style="font-size: 30px;"><%=book.getAuthor()%></h2>
-            <h2 style="font-size: 28px;"><%=book.getGenres()%></h2>
-            <div class="row">
-                <div class="col-md-6 text-success">
-                    <h3 style="font-size: 28px;"><%=book.getPrice()%> VND</h3>
+    <form method="get" action="additem">
+        <div class="row">
+            <div class="col-md-6 text-center p-5 border bg-white">
+                <img src="Images/<%=book.getPhoto()%>" style="height: 350px; width: 250px"><br>
+                <h1 style="font-size: 40px;"><%=book.getBookName()%></h1>
+                <h2 style="font-size: 30px;"><%=book.getAuthor()%></h2>
+                <h2 style="font-size: 28px;"><%=book.getGenres()%></h2>
+                <div class="row">
+                    <div class="col-md-6 text-success">
+                        <h3 style="font-size: 28px;"><%=book.getPrice()%> VND</h3>
+                    </div>
+                    <div class="col-md-6 text-success">
+                        <h3 style="font-size: 24px;">In stock: <%=book.getQuantity()%></p>
+                    </div>
                 </div>
-                <div class="col-md-6 text-success">
-                    <h3 style="font-size: 24px;">In stock: <%=book.getQuantity()%></p>
+            </div>
+            <div class="col-md-6 p-5 bg-white mt-4">
+                <div class="row">
+                    <div class="col-md-12 text-center mb-3">
+                        <p class="h3 font-weight-bold text-primary">Contact seller:</p>
+                        <p class="h4 font-weight-bold text-primary"><i class="fa-solid fa-envelope-circle-check"></i> admin@gmail.com</p>
+                    </div>
+                    <div class="col-md-4 text-success text-center p-2">
+                        <i class="fa-solid fa-money-bill-wave" style="font-size: 48px;"></i>
+                        <p style="font-size: 24px; font-weight: bold;">Cash on Delivery</p>
+                    </div>
+                    <div class="col-md-4 text-success text-center p-2">
+                        <i class="fa-solid fa-rotate-left" style="font-size: 48px;"></i>
+                        <p style="font-size: 24px; font-weight: bold;">Return Available</p>
+                    </div>
+                    <div class="col-md-4 text-success text-center p-2">
+                        <i class="fa-solid fa-star" style="font-size: 48px;"></i>
+                        <p style="font-size: 24px; font-weight: bold;">Best Quality</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-4"></div> 
+                    <div class="col-md-3">
+                        <input type="number" placeholder="Select qty" id="quantitybox" name="quantity" class="form-control" oninput="validateQuantity()" required">
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <% if (user==null) {
+                        %>
+                        <a href="Login.jsp" class="btn btn-primary"><i class="fa-solid fa-cart-plus"></i> Add to Cart</a>
+                        <%
+                        } else {
+                        %>
+                        <a href="additem?bid=<%=book.getBookId()%>&&uid=<%=user.getId()%>" button type="submit" class="btn btn-primary"><i class="fa-solid fa-cart-plus"></i> Add to Cart</a>
+                        <%
+                        }
+                        %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center mt-3">
+                        <a href="index.jsp" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Continue Shopping</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 p-5 bg-white mt-4">
-            <div class="row">
-                <div class="col-md-12 text-center mb-3">
-                    <p class="h3 font-weight-bold text-primary">Contact seller:</p>
-                    <p class="h4 font-weight-bold text-primary"><i class="fa-solid fa-envelope-circle-check"></i> admin@gmail.com</p>
-                </div>
-                <div class="col-md-4 text-success text-center p-2">
-                    <i class="fa-solid fa-money-bill-wave" style="font-size: 48px;"></i>
-                    <p style="font-size: 24px; font-weight: bold;">Cash on Delivery</p>
-                </div>
-                <div class="col-md-4 text-success text-center p-2">
-                    <i class="fa-solid fa-rotate-left" style="font-size: 48px;"></i>
-                    <p style="font-size: 24px; font-weight: bold;">Return Available</p>
-                </div>
-                <div class="col-md-4 text-success text-center p-2">
-                    <i class="fa-solid fa-star" style="font-size: 48px;"></i>
-                    <p style="font-size: 24px; font-weight: bold;">Best Quality</p>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-3"></div> 
-                <div class="col-md-3">
-                    <input type="number" placeholder="Quantity" id="quantitybox" name="quantity" class="form-control" oninput="validateQuantity()" required">
-                </div>
-                <div class="col-md-4">
-                    <% if (user==null) {
-                    %>
-                    <a href="Login.jsp" class="btn btn-primary"><i class="fa-solid fa-cart-plus"></i> Add to Cart</a>
-                    <%
-                    } else {
-                    %>
-                    <a href="additem?bid=<%=book.getBookId()%>&&uid=<%=user.getId()%>" class="btn btn-primary"><i class="fa-solid fa-cart-plus"></i> Add to Cart</a>
-                    <%
-                    }
-                    %>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-center mt-3">
-                    <a href="index.jsp" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Continue Shopping</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    </form>
 </div>
 <%@ include file="../Components/Footer.jsp" %>
 </body>

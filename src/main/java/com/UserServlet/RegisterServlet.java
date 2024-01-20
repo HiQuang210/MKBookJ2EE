@@ -32,22 +32,24 @@ public class RegisterServlet extends HttpServlet {
             session.removeAttribute("succMsg");
             session.removeAttribute("failMsg");
             if (password.equals(confirmpass)) {
-            UserDAOimpl dao = new UserDAOimpl(DBConnect.getConnection());
-            boolean check=dao.UserRegister(user);
-            if (dao.isEmailExists(email)) {
-                session.setAttribute("failMsg", "The entered email is already registered.");
-                response.sendRedirect("Register.jsp");
-            } else {
-                if (check) {
-                    System.out.println("User registration successfully");
-                    session.setAttribute("succMsg", "Registration successfully.");
+                UserDAOimpl dao = new UserDAOimpl(DBConnect.getConnection());
+                if (dao.isEmailExists(email)) {
+                    System.out.println("Email already exists");
+                    session.setAttribute("failMsg", "The entered email is already registered.");
                     response.sendRedirect("Register.jsp");
                 } else {
-                    System.out.println("Something went wrong");
-                    session.setAttribute("failMsg", "Something went wrong, please try again.");
-                    response.sendRedirect("Register.jsp");
+                    boolean check = dao.UserRegister(user);
+            
+                    if (check) {
+                        System.out.println("User registration successfully");
+                        session.setAttribute("succMsg", "Registration successfully.");
+                        response.sendRedirect("Register.jsp");
+                    } else {
+                        System.out.println("Something went wrong");
+                        session.setAttribute("failMsg", "Something went wrong, please try again.");
+                        response.sendRedirect("Register.jsp");
+                    }
                 }
-            }
             } else {
                 session.setAttribute("failMsg", "Passwords do not match.");
                 response.sendRedirect("Register.jsp");

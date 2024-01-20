@@ -10,27 +10,39 @@ import jakarta.servlet.http.*;
 public class AddItem extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            int uid=Integer.parseInt(request.getParameter("uid"));
-            int bid=Integer.parseInt(request.getParameter("bid"));
-            Item item = new Item();
-            item.setUserId(uid);
-            item.setBookId(bid);
-            item.setQuantity(2);
-            
-            ItemDAOimpl dao = new ItemDAOimpl(DBConnect.getConnection());
-            boolean check = dao.addCart(item);
+            String uidParam = request.getParameter("uid");
+            String bidParam = request.getParameter("bid");
+            String quantityParam = request.getParameter("quantity");
 
-            HttpSession session = request.getSession();
-            if (check) {
-                session.setAttribute("addMoreCart","Book Added to cart");
-                response.sendRedirect("ViewBook.jsp");
-                System.out.println("Add item to cart success");
+            if (uidParam != null && bidParam != null && quantityParam != null) {
+                int uid = Integer.parseInt(uidParam);
+                int bid = Integer.parseInt(bidParam);
+                int quantity = Integer.parseInt(quantityParam);
+                System.out.println("Quantity transferred to servlet: " + quantity);
+
+                Item item = new Item();
+                item.setUserId(uid);
+                item.setBookId(bid);
+                item.setQuantity(quantity);
+
+                ItemDAOimpl dao = new ItemDAOimpl(DBConnect.getConnection());
+                boolean check = dao.addCart(item);
+
+                HttpSession session = request.getSession();
+                if (check) {
+                    session.setAttribute("addMoreCart", "Book Added to cart");
+                    response.sendRedirect("ViewBook.jsp");
+                    System.out.println("Add item to cart success");
+                } else {
+                    session.setAttribute("failed", "Something went wrong...");
+                    System.out.println("Not registered to cart");
+                }
             } else {
-                session.setAttribute("failed","Something went wrong...");
-                System.out.println("Not registered to cart");
+                System.out.println("One or more parameters are null");
             }
         } catch (Exception e) {
-            e.printStackTrace(); 
-        }    
+            e.printStackTrace();
+        }
     }
 }
+
