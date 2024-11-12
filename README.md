@@ -3,5 +3,5 @@
 **MKBook E-Bookstore Management Project using J2EE (JSP + Servlet) technology**
 
 Project created by: <br>
-Nguyen Hong Quang - 21522511  <br>
-Nguyen Quoc Trung - 19522429
+Nguyen Hong Quang - 21522511 
+
