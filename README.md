@@ -9,8 +9,7 @@ MKBook is a web-based bookstore management application developed using **Java, J
 - **Book Management**: Import, update, and remove books from the inventory.
 - **Sales Processing**: Process book sales and generate invoices.
 - **Order Management**: Track and manage customer orders.
-- **Search Functionality**: Find books quickly using various filters.
-- **Report Generation**: Generate sales reports and inventory insights.
+- **Search Functionality**: Find books quickly with search function.
 
 ## Requirements
 - **Java Development Kit (JDK) 8+**
